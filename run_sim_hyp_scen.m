@@ -1,5 +1,5 @@
-% This simulates the drynamic blood pressure regulation model bp_reg_mod.m 
-% for various scenarios for a given virtual individual.
+% This simulates the blood pressure regulation model bp_reg_mod.m for 
+% various scenarios for a given virtual individual.
 % 
 % Parameters and steady state data for the virtual population are 
 % calculated by create_par_bs_rep.m and create_vp.m, respectively.

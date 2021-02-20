@@ -32,9 +32,6 @@ bp_reg_mod.m
 -Model equations file of the form f(t,x(t),x'(t);theta) = 0.
 -Accepts inputs for perturbations (sodium loading, Ang II infusion, drug administration, etc.).
 
-man_figs.m
--Produces figures from manuscript with appropriate formatting.
-
 solve_ss_scenario.m
 -Solves the steady state solution for different scenarios.
 
@@ -81,37 +78,14 @@ create_opt_drugs_class_dataset.m
 -The saved dataset can then be inputted into MATLAB's classification learner app.
 -Parameters and steady state data for the virtual population are calculated by create_par_bs_rep.m and create_vp.m, respectively.
 
+-----------------------------------------------------------------------------
 
+man_figs_AngII.m
+-Produces figure 1a from manuscript with appropriate formatting.
 
+man_figs_Sodin.m
+-Produces figure 1b from manuscript with appropriate formatting.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+man_figs.m
+-Produces figures 3, 4, 5 from manuscript with appropriate formatting.
 
