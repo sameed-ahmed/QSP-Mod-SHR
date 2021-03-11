@@ -218,10 +218,11 @@ MAPpoint_range_f = [5  ,(10+  5 -  5+  5)/2];
 
 % x-axis
 xscale = iter_range;
+alpha = 2;
 
-fig = figure('DefaultAxesFontSize',16*1.5);
-set(gcf, 'Units', 'Inches', 'Position', [0, 0, 7, 5]);
-p1 = plot(xscale,MAP_mean_m,'-' , 'Color',[0.203, 0.592, 0.835], 'LineWidth',4.5);
+fig = figure('DefaultAxesFontSize',8);
+set(gcf, 'Units', 'centimeters', 'Position', [0, 0, 17.2/2, 17.2/2 * (5/7)]);
+p1 = plot(xscale,MAP_mean_m,'-' , 'Color',[0.203, 0.592, 0.835], 'LineWidth',1.5*alpha);
 ylim([125, 185])
 xlim([lower, upper+0.01])
 ax = gca;
@@ -229,22 +230,27 @@ ax.YTick = (130 : 10 : 180);
 ylabel('MAP (mmHg)')
 xlabel({'Fold change in sodium excretion'})
 hold on
-p2 = plot(xscale,MAP_mean_f , '-', 'Color',[0.835, 0.203, 0.576], 'LineWidth',4.5);
-p3 = plot(xscale,MAP_lower_m, ':', 'Color',[0.203, 0.592, 0.835], 'LineWidth',1.5);
-p4 = plot(xscale,MAP_lower_f, ':', 'Color',[0.835, 0.203, 0.576], 'LineWidth',1.5);
-p5 = plot(xscale,MAP_upper_m, ':', 'Color',[0.203, 0.592, 0.835], 'LineWidth',1.5);
-p6 = plot(xscale,MAP_upper_f, ':', 'Color',[0.835, 0.203, 0.576], 'LineWidth',1.5);
-p7 = errorbar(sod_point_m,MAPpoint_mid_m,MAPpoint_range_m,'o', 'DisplayName',  'Male data', 'Color',[0.203, 0.592, 0.835], 'MarkerSize',9, 'LineWidth',1.5);
-p8 = errorbar(sod_point_f,MAPpoint_mid_f,MAPpoint_range_f,'o', 'DisplayName','Female data', 'Color',[0.835, 0.203, 0.576], 'MarkerSize',9, 'LineWidth',1.5);
-[~, hobj, ~, ~] = legend([p1 p2 p7 p8],{'Male sim','Female sim','Male data','Female data'}, 'FontSize',8*1.5,'Location','Northwest');
+p2 = plot(xscale,MAP_mean_f , '-', 'Color',[0.835, 0.203, 0.576], 'LineWidth',1.5*alpha);
+p3 = plot(xscale,MAP_lower_m, ':', 'Color',[0.203, 0.592, 0.835], 'LineWidth',0.5*alpha);
+p4 = plot(xscale,MAP_lower_f, ':', 'Color',[0.835, 0.203, 0.576], 'LineWidth',0.5*alpha);
+p5 = plot(xscale,MAP_upper_m, ':', 'Color',[0.203, 0.592, 0.835], 'LineWidth',0.5*alpha);
+p6 = plot(xscale,MAP_upper_f, ':', 'Color',[0.835, 0.203, 0.576], 'LineWidth',0.5*alpha);
+p7 = errorbar(sod_point_m,MAPpoint_mid_m,MAPpoint_range_m,'o', 'DisplayName',  'Male data', 'Color',[0.203, 0.592, 0.835], 'MarkerSize',3*alpha, 'LineWidth',0.5*alpha);
+p8 = errorbar(sod_point_f,MAPpoint_mid_f,MAPpoint_range_f,'o', 'DisplayName','Female data', 'Color',[0.835, 0.203, 0.576], 'MarkerSize',3*alpha, 'LineWidth',0.5*alpha);
+[~, hobj, ~, ~] = legend([p1 p2 p7 p8],{'Male sim','Female sim','Male data','Female data'}, 'FontSize',6,'Location','Northwest');
 hl = findobj(hobj,'type','line');
-set(hl,'LineWidth',2.25);
+set(hl,'LineWidth',0.75*alpha);
 hold off
-title('B', 'FontWeight','normal')
+title('B', 'FontWeight','bold')
 
 %% Save figures.
 
-save_data_name = sprintf('Pri_hyp_sim_%s.png', ...
+save_data_name = sprintf('Pri_hyp_sim_%s.fig', ...
+                         sim_scenario{exact_sim_scen});
+save_data_name = strcat('Figures/', save_data_name);
+savefig(fig, save_data_name)
+% ---
+save_data_name = sprintf('Pri_hyp_sim_%s.tif', ...
                          sim_scenario{exact_sim_scen});
 save_data_name = strcat('Figures/', save_data_name);
 exportgraphics(fig, save_data_name)

@@ -210,35 +210,41 @@ tdata = [0+1 , 1+1 , 2+1 , 3+1 , 4+1 , 5+1 , 6+1 ,...
 
 % x-axis limits
 xlower = t0; xupper = tend; 
+alpha = 2;
 
 % Convert minutes to days for longer simulations.
 tspan = tspan/1440; tchange = tchange/1440; 
 xlower = xlower/1440; xupper = xupper/1440; 
 
-fig = figure('DefaultAxesFontSize',16*1.5);
-set(gcf, 'Units', 'Inches', 'Position', [0, 0, 7, 5]);
-p1 = plot(tspan,MAP_mean_m,'-', 'Color',[0.203, 0.592, 0.835], 'LineWidth',4.5);
+fig = figure('DefaultAxesFontSize',8);
+set(gcf, 'Units', 'centimeters', 'Position', [0, 0, 17.2/2, 17.2/2 * (5/7)]);
+p1 = plot(tspan,MAP_mean_m,'-', 'Color',[0.203, 0.592, 0.835], 'LineWidth',1.5*alpha);
 xlim([xlower, xupper]); ylim([-1, 60]);
 ax = gca;
 ax.XTick = (tchange+0*(1) : 2 : tchange+days*(1));
 ax.XTickLabel = {'0','2','4','6','8','10','12','14'};
 xlabel('Time (days)'); ylabel('\DeltaMAP (mmHg)');
 hold on
-p2 = plot(tspan,MAP_mean_f , '-', 'Color',[0.835, 0.203, 0.576], 'LineWidth',4.5);
-p3 = plot(tspan,MAP_lower_m, ':', 'Color',[0.203, 0.592, 0.835], 'LineWidth',1.5);
-p4 = plot(tspan,MAP_lower_f, ':', 'Color',[0.835, 0.203, 0.576], 'LineWidth',1.5);
-p5 = plot(tspan,MAP_upper_m, ':', 'Color',[0.203, 0.592, 0.835], 'LineWidth',1.5);
-p6 = plot(tspan,MAP_upper_f, ':', 'Color',[0.835, 0.203, 0.576], 'LineWidth',1.5);
-p7 = errorbar(tdata,MAPdata_mean_m,2*MAPdata_std_m,'o', 'DisplayName',  'Male data', 'Color',[0.203, 0.592, 0.835], 'MarkerSize',9, 'LineWidth',1.5);
-p8 = errorbar(tdata,MAPdata_mean_f,2*MAPdata_std_f,'o', 'DisplayName','Female data', 'Color',[0.835, 0.203, 0.576], 'MarkerSize',9, 'LineWidth',1.5);
-[~, hobj, ~, ~] = legend([p1 p2 p7 p8],{'Male sim','Female sim','Male data','Female data'}, 'FontSize',8*1.5,'Location','Northwest');
+p2 = plot(tspan,MAP_mean_f , '-', 'Color',[0.835, 0.203, 0.576], 'LineWidth',1.5*alpha);
+p3 = plot(tspan,MAP_lower_m, ':', 'Color',[0.203, 0.592, 0.835], 'LineWidth',0.5*alpha);
+p4 = plot(tspan,MAP_lower_f, ':', 'Color',[0.835, 0.203, 0.576], 'LineWidth',0.5*alpha);
+p5 = plot(tspan,MAP_upper_m, ':', 'Color',[0.203, 0.592, 0.835], 'LineWidth',0.5*alpha);
+p6 = plot(tspan,MAP_upper_f, ':', 'Color',[0.835, 0.203, 0.576], 'LineWidth',0.5*alpha);
+p7 = errorbar(tdata,MAPdata_mean_m,2*MAPdata_std_m,'o', 'DisplayName',  'Male data', 'Color',[0.203, 0.592, 0.835], 'MarkerSize',3*alpha, 'LineWidth',0.5*alpha);
+p8 = errorbar(tdata,MAPdata_mean_f,2*MAPdata_std_f,'o', 'DisplayName','Female data', 'Color',[0.835, 0.203, 0.576], 'MarkerSize',3*alpha, 'LineWidth',0.5*alpha);
+[~, hobj, ~, ~] = legend([p1 p2 p7 p8],{'Male sim','Female sim','Male data','Female data'}, 'FontSize',6,'Location','Northwest');
 hl = findobj(hobj,'type','line');
-set(hl,'LineWidth',2.25);
-title('A', 'FontWeight','normal')
+set(hl,'LineWidth',0.75*alpha);
+title('A', 'FontWeight','bold')
 
 %% Save figures.
 
-save_data_name = sprintf('Pri_hyp_sim_%s.png', ...
+save_data_name = sprintf('Pri_hyp_sim_%s.fig', ...
+                         sim_scenario{exact_sim_scen});
+save_data_name = strcat('Figures/', save_data_name);
+savefig(fig, save_data_name)
+% ---
+save_data_name = sprintf('Pri_hyp_sim_%s.tif', ...
                          sim_scenario{exact_sim_scen});
 save_data_name = strcat('Figures/', save_data_name);
 exportgraphics(fig, save_data_name)

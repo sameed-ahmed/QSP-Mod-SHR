@@ -197,8 +197,8 @@ for i = 1:pars_hyp_num
     end
 end
 % ---
-g2 = figure('DefaultAxesFontSize',18);
-set(gcf, 'Units', 'Inches', 'Position', [0, 0, 15, 7]);
+g2 = figure('DefaultAxesFontSize',8);
+set(gcf, 'Units', 'centimeters', 'Position', [0, 0, 17.2, 7]);
 t2 = tiledlayout(2,4,'TileSpacing','Compact','Padding','Compact');
 for i = 1:pars_hyp_num
     nexttile
@@ -213,23 +213,23 @@ for i = 1:pars_hyp_num
     xlabel_name = strcat(pars_names_des(i));
 %     xlabel(xlabel_name, 'FontSize',16) 
     xlabel(xlabel_name) 
-    title(par_title{i}, 'FontWeight','normal')
+    title(par_title{i}, 'FontWeight','bold')
     
     if i == 1
 %         legend('Male','Female', 'FontSize',10,'Location','Northeast');
         legend('Male','Female', 'Location','Northeast');
     end
 end
-ylabel(t2, 'Frequency', 'FontSize',18)
-xlabel(t2, 'Fold Change', 'FontSize',18)
+ylabel(t2, 'Frequency', 'FontSize',8)
+xlabel(t2, 'Fold Change', 'FontSize',8)
 
 %% Save figures.
 
 save_data_name = sprintf('par_var_dist1000.fig');
 save_data_name = strcat('Figures/', save_data_name);
-savefig([f(1,:),f(2,:),g1], save_data_name)
+savefig([f(1,:),f(2,:),g1,g2], save_data_name)
 % ---
-save_data_name = sprintf('par_var_dist1000.png');
+save_data_name = sprintf('par_var_dist1000.tif');
 save_data_name = strcat('Figures/', save_data_name);
 exportgraphics(g2, save_data_name)
 
